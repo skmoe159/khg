@@ -613,6 +613,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8662335204079597509, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662335204079597509, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -731,6 +739,9 @@ MonoBehaviour:
   obstaclePrefabs:
   - {fileID: 2178879339782883250, guid: 00d80b746cd85f3478ace0e91b437f54, type: 3}
   - {fileID: 8389533814144090964, guid: d6a854f0f676f034f8613bf87289df37, type: 3}
+  - {fileID: 4148206605126619430, guid: f8b1249fce119184d817e3b07c7f375a, type: 3}
+  - {fileID: 870796377634720452, guid: 9e80f8cd3d768684da4ae2e4ba255da4, type: 3}
+  - {fileID: 3559489267015629316, guid: cdec4490e2948e94b9d9083c39671019, type: 3}
   maxObstacles: 5
   spawnInterval: 3
   obstacleParent: {fileID: 1254528128}

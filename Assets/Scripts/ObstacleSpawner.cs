@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] obstaclePrefabs;
+    [SerializeField] private GameObject[] obstaclePrefabs; // 장애물 프리팹 배열을 인스펙터에서 설정할 수 있도록 SerializeField로 선언
     [SerializeField] private int maxObstacles = 10;
     [SerializeField] private float spawnInterval = 1f;
-    [SerializeField] private Transform obstacleParent;
+    [SerializeField] private Transform obstacleParent; // 생성된 장애물의 부모 오브젝트를 설정할 수 있도록 Transform 변수 선언
 
     List<GameObject> obstacles = new List<GameObject>(); // 장애물을 관리하기 위한 리스트 생성
 

@@ -52,8 +52,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -3571030535427182757, guid: 01b0d7cd3288fb04aa0c7ed55acafb11, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -121,11 +120,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4820503693382749466, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       propertyPath: m_LinearDamping
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8156941276339828731, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
+    - {fileID: 7797970429944600178, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8787211101243032201, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       insertIndex: -1
