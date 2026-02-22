@@ -5,6 +5,10 @@ public class Chunk : MonoBehaviour
 {
     [SerializeField] private GameObject fencePrefab; // 장애물 프리팹을 인스펙터에서 설정할 수 있도록 SerializeField로 선언
     [SerializeField] private GameObject applePrefab; // 사과 프리팹을 인스펙터에서 설정할 수 있도록 SerializeField로 선언
+    [SerializeField] private GameObject coinPrefab; // 코인 프리팹을 인스펙터에서 설정할 수 있도록 SerializeField로 선언
+    [SerializeField] private float spawnChance = .3f; // 장애물과 사과가 생성될 확률을 설정할 수 있도록 SerializeField로 선언 (예시로 0.5f를 사용)
+    [SerializeField] private float coinSpawnChance = .5f; // 사과가 생성될 확률을 설정할 수 있도록 SerializeField로 선언 (예시로 0.5f를 사용)
+    [SerializeField] private float coinSpawnInterval = 2.0f; // 코인이 생성될 간격을 설정할 수 있도록 SerializeField로 선언 (예시로 2.5f를 사용)
     [SerializeField] private float[] fenceSpawnLength = { -2.5f, 0f, 2.5f }; // 장애물의 스폰 위치를 설정할 수 있도록 float 배열로 선언 (예시로 -2.5, 0, 2.5를 사용)
 
     List<int> fences = new List<int>() { 0, 1, 2 }; // 장애물의 위치 인덱스를 관리하기 위한 리스트 생성 (0, 1, 2는 fenceSpawnLength 배열의 인덱스에 해당)
@@ -12,6 +16,7 @@ public class Chunk : MonoBehaviour
     {
         SpawnFences(); // Start 메서드에서 SpawnFence 메서드를 호출하여 장애물을 생성
         SpawnApple(); // Start 메서드에서 SpawnApple 메서드를 호출하여 사과를 생성
+        SpawnCoin(); // Start 메서드에서 SpawnCoin 메서드를 호출하여 코인을 생성
     }
 
     // fenceSpawnLength[selectedLane]해당 코드로 인해
@@ -28,9 +33,7 @@ public class Chunk : MonoBehaviour
         {
             if (fences.Count <= 0) break; // fences 리스트가 비어있을 때 반복문 종료
 
-            int randomLaneIndex = Random.Range(0, fences.Count); // randomLaneIndex를 0과 fences 리스트의 길이 사이에서 랜덤으로 선택
-            int selectedLane = fences[randomLaneIndex]; // selectedLane을 fences 리스트에서 randomLaneIndex에 해당하는 요소로 설정
-            fences.RemoveAt(randomLaneIndex); // 생성된 장애물의 인덱스를 리스트에서 제거하여 중복 생성 방지
+            int selectedLane = SelectLane();
 
             // spawnPosition을 새로운 Vector3로 설정 (fenceSpawnLength[selectedLane], 현재 오브젝트의 y 위치 - 0.2f, 현재 오브젝트의 z 위치)
             Vector3 spawnPosition = new Vector3(fenceSpawnLength[selectedLane], transform.position.y, transform.position.z);
@@ -39,20 +42,42 @@ public class Chunk : MonoBehaviour
         }
     }
 
+
     void SpawnApple()
     {
-        int appleCount = Random.Range(0, 2);
+        if (Random.value > spawnChance || fences.Count <= 0) return; // spawnChance 확률로 사과 생성 (예: 0.3f이면 30% 확률로 사과 생성)
         
-        // appleCount가 1이고 fences 리스트에 요소가 있을 때 사과를 생성
-        if (appleCount == 1 && fences.Count > 0)
-        {
-        List<int> apple = new List<int>(fences); // apple 리스트를 fences 리스트의 복사본으로 생성
-        int randomAppleIndex = Random.Range(0, apple.Count); // randomAppleCount를 0과 apple 리스트의 길이 사이에서 랜덤으로 선택하여 생성할 사과의 개수를 결정
-        int selectedAppleLane = apple[randomAppleIndex]; // selectedAppleLane을 apple 리스트에서 randomAppleIndex에 해당하는 요소로 설정
-        apple.RemoveAt(randomAppleIndex); // 생성된 사과의 인덱스를 리스트에서 제거하여 중복 생성 방지
+
+        int selectedAppleLane = SelectLane(); // 사과를 생성할 랜덤한 장애물 위치를 선택
 
         Vector3 spawnPosition = new Vector3(fenceSpawnLength[selectedAppleLane], transform.position.y, transform.position.z);
         Instantiate(applePrefab, spawnPosition, Quaternion.identity, this.transform);
+
+    }
+    void SpawnCoin()
+    {
+        if (Random.value > coinSpawnChance || fences.Count <= 0) return; // coinSpawnChance 확률로 코인 생성 (예: 0.5f이면 50% 확률로 코인 생성)
+
+        int selectedLane = SelectLane(); // 코인을 생성할 랜덤한 장애물 위치를 선택
+
+        int maxRange = 6;
+        int randomCoinCount = Random.Range(1, maxRange); // randomCoinCount를 1과 maxRange 사이에서 랜덤으로 선택하여 생성할 코인의 개수를 결정 (예: 1과 5 사이에서 랜덤으로 선택)
+
+        float topOfChunkZPos = transform.position.z + (coinSpawnInterval * 2f); // topOfChunkZPos를 현재 오브젝트의 z 위치에 coinSpawnInterval의 2배를 더한 값으로 설정 (예: 현재 z 위치 + 4f)
+        for (int i = 0; i < randomCoinCount; i++)
+        {
+            float spawnPositionZ = topOfChunkZPos - (i * coinSpawnInterval); // spawnPositionZ를 topOfChunkZPos에 i와 coinSpawnInterval의 곱을 더한 값으로 설정 (예: topOfChunkZPos + (0, 1, 2, ...) * coinSpawnInterval)
+            Vector3 spawnPosition = new Vector3(fenceSpawnLength[selectedLane], transform.position.y, spawnPositionZ); // spawnPosition을 새로운 Vector3로 설정 (fenceSpawnLength[selectedLane], 현재 오브젝트의 y 위치, spawnPositionZ)
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity, this.transform);
+
         }
+    }
+    
+    private int SelectLane()
+    {
+        int randomLaneIndex = Random.Range(0, fences.Count); // randomLaneIndex를 0과 fences 리스트의 길이 사이에서 랜덤으로 선택
+        int selectedLane = fences[randomLaneIndex]; // selectedLane을 fences 리스트에서 randomLaneIndex에 해당하는 요소로 설정
+        fences.RemoveAt(randomLaneIndex); // 생성된 장애물의 인덱스를 리스트에서 제거하여 중복 생성 방지
+        return selectedLane;
     }
 }
