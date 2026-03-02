@@ -74,6 +74,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My Barrel
       objectReference: {fileID: 0}
+    - target: {fileID: 870796377634720452, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 993380849144595081, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       propertyPath: m_Material
       value: 
@@ -119,8 +123,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4820503693382749466, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820503693382749466, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       propertyPath: m_LinearDamping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820503693382749466, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
+      propertyPath: m_AngularDamping
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -152,7 +164,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8389533814144090964}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0d77090aae589e14d888cca6d0245f9d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

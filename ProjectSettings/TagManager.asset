@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Obstacle
+  - Coin
+  - Apple
+  - Item
   layers:
   - Default
   - TransparentFX

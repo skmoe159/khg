@@ -19,7 +19,7 @@ public class Chunk : MonoBehaviour
         SpawnCoin(); // Start 메서드에서 SpawnCoin 메서드를 호출하여 코인을 생성
     }
 
-    // fenceSpawnLength[selectedLane]해당 코드로 인해
+    // fenceSpawnLength[selectedLane]
     // List에 0, 1, 2는 fenceSpawnLength 배열의 인덱스에 해당하며, 
     // 각각의 인덱스는 장애물이 생성될 위치를 나타냄 (예시로 0 = -2.5, 1 = 0, 2 = 2.5)
     // 랜덤 List에서 2가 할당될 경우 2.5f 위치에서 장애물이 생성되며, 
@@ -62,12 +62,17 @@ public class Chunk : MonoBehaviour
 
         int maxRange = 6;
         int randomCoinCount = Random.Range(1, maxRange); // randomCoinCount를 1과 maxRange 사이에서 랜덤으로 선택하여 생성할 코인의 개수를 결정 (예: 1과 5 사이에서 랜덤으로 선택)
+        
+        // topOfChunkZPos를 현재 오브젝트의 z 위치에 coinSpawnInterval의 2배를 더한 값으로 설정 (예: 현재 z 위치 + 4f)
+        float topOfChunkZPos = transform.position.z + (coinSpawnInterval * 2f); 
 
-        float topOfChunkZPos = transform.position.z + (coinSpawnInterval * 2f); // topOfChunkZPos를 현재 오브젝트의 z 위치에 coinSpawnInterval의 2배를 더한 값으로 설정 (예: 현재 z 위치 + 4f)
+        // i는 0부터 실행, 시작 i는 0, 즉 최초 Instantiate i는 0이다
         for (int i = 0; i < randomCoinCount; i++)
         {
-            float spawnPositionZ = topOfChunkZPos - (i * coinSpawnInterval); // spawnPositionZ를 topOfChunkZPos에 i와 coinSpawnInterval의 곱을 더한 값으로 설정 (예: topOfChunkZPos + (0, 1, 2, ...) * coinSpawnInterval)
-            Vector3 spawnPosition = new Vector3(fenceSpawnLength[selectedLane], transform.position.y, spawnPositionZ); // spawnPosition을 새로운 Vector3로 설정 (fenceSpawnLength[selectedLane], 현재 오브젝트의 y 위치, spawnPositionZ)
+            // spawnPositionZ를 topOfChunkZPos에 i와 coinSpawnInterval의 곱을 뺀 값으로 설정 (예: topOfChunkZPos - (0, 1, 2, ...) * coinSpawnInterval)
+            float spawnPositionZ = topOfChunkZPos - (i * coinSpawnInterval);
+            // spawnPosition을 새로운 Vector3로 설정 (fenceSpawnLength[selectedLane], 현재 오브젝트의 y 위치, spawnPositionZ)
+            Vector3 spawnPosition = new Vector3(fenceSpawnLength[selectedLane], transform.position.y, spawnPositionZ); 
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity, this.transform);
 
         }

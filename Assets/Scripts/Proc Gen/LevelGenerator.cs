@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int startingChunksAmount = 12;
     [SerializeField] private Transform chunkParent;
     [SerializeField] private float chunkLength = 10f;
-    [SerializeField] private float moveSpeed = 100f;
+    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float minMoveSpeed = 4f;
 
     List<GameObject> chunks = new List<GameObject>(); //리스트 생성
 
@@ -19,6 +21,18 @@ public class LevelGenerator : MonoBehaviour
     void Update()
     {
         MoveChunks();
+    }
+
+    public void ChangeChunkMoveSpeed(float speedAmount)
+    {
+        moveSpeed += speedAmount; //moveSpeed에 speedAmount를 더하여 이동 속도를 증가시킴
+         
+        if (moveSpeed <= minMoveSpeed) //moveSpeed가 minMoveSpeed보다 작거나 같을 때
+        {
+            moveSpeed = minMoveSpeed; //moveSpeed를 minMoveSpeed로 설정하여 최소 이동 속도를 유지
+        }
+        //speedAmount의 절반만큼 z축 방향의 중력 값을 증가시켜 피직스 효과를 조절
+        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
     }
 
     private void SpawnStartiongChunks()

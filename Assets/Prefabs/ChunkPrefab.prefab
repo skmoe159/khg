@@ -50,10 +50,11 @@ MonoBehaviour:
   coinPrefab: {fileID: 2707815342114649162, guid: 78765593ed48f8d43abfec4c71c44bc7, type: 3}
   spawnChance: 0.3
   coinSpawnChance: 0.5
+  coinSpawnInterval: 2.5
   fenceSpawnLength:
-  - -2.5
+  - -3
   - 0
-  - 2.5
+  - 3
 --- !u!1 &6938098480978220745
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317427368463412491, guid: 5f28e8a76fb078c4ab5d1543c3a3e4ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.52
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6317427368463412491, guid: 5f28e8a76fb078c4ab5d1543c3a3e4ae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -312,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317427368463412491, guid: 5f28e8a76fb078c4ab5d1543c3a3e4ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.64
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6317427368463412491, guid: 5f28e8a76fb078c4ab5d1543c3a3e4ae, type: 3}
       propertyPath: m_LocalPosition.y

@@ -159,10 +159,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 234085577}
+  - component: {fileID: 234085580}
   - component: {fileID: 234085581}
+  - component: {fileID: 234085582}
   - component: {fileID: 234085578}
   - component: {fileID: 234085579}
-  - component: {fileID: 234085580}
   m_Layer: 0
   m_Name: Player King
   m_TagString: Player
@@ -180,8 +181,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 846149948}
   m_Father: {fileID: 0}
@@ -211,7 +212,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &234085579
 CapsuleCollider:
@@ -297,6 +298,20 @@ MonoBehaviour:
   moveSpeed: 5
   xClamp: 3
   zClamp: 1
+--- !u!114 &234085582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234085576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f413b11824b5684db401ad64e97c08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCollisionHandler
+  animator: {fileID: 1782399500}
+  hitCooldown: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +858,11 @@ Transform:
 --- !u!4 &1782399499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6410221756858730007, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
+  m_PrefabInstance: {fileID: 511503870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1782399500 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1014860696115371117, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
   m_PrefabInstance: {fileID: 511503870}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

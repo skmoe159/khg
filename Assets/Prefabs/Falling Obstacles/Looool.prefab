@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Looool
       objectReference: {fileID: 0}
+    - target: {fileID: 870796377634720452, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 4409045053364277144, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -146,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4820503693382749466, guid: c5249bd1f2f44bc43adba245ef42b9c3, type: 3}
       propertyPath: m_AngularDamping
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

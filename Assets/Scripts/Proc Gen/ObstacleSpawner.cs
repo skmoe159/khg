@@ -48,7 +48,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     void RemoveObstacle()
     {
+        GameObject oldObstacle = obstacles[0]; // 리스트의 첫 번째 장애물을 oldObstacle 변수에 할당
         obstacles.RemoveAt(0); // 장애물을 리스트에서 제거
-        Destroy(obstacles[0]); // 장애물 게임 오브젝트를 파괴
+        Destroy(oldObstacle); // 장애물 게임 오브젝트를 파괴
     }
 }
