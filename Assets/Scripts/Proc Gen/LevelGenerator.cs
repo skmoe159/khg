@@ -4,12 +4,20 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private GameObject ChunkPrefab;
-    [SerializeField] private int startingChunksAmount = 12;
     [SerializeField] private Transform chunkParent;
+    
+    [Header("Level Settings")]
+    [SerializeField] private int startingChunksAmount = 12;
+    [Tooltip("청크 프리팹 크기가 변경된 경우가 아니면 길이를 변경하지 마세요")]
     [SerializeField] private float chunkLength = 10f;
     [SerializeField] private float moveSpeed = 8f;
     [SerializeField] private float minMoveSpeed = 4f;
+    [SerializeField] private float maxMoveSpeed = 16f;
+    [SerializeField] private float minGravityZ = -20f;
+    [SerializeField] private float maxGravityZ = -6f;
 
     List<GameObject> chunks = new List<GameObject>(); //리스트 생성
 
@@ -25,14 +33,18 @@ public class LevelGenerator : MonoBehaviour
 
     public void ChangeChunkMoveSpeed(float speedAmount)
     {
-        moveSpeed += speedAmount; //moveSpeed에 speedAmount를 더하여 이동 속도를 증가시킴
-         
-        if (moveSpeed <= minMoveSpeed) //moveSpeed가 minMoveSpeed보다 작거나 같을 때
+        float newMoveSpeed = moveSpeed + speedAmount; //새로운 이동 속도를 계산하여 newMoveSpeed 변수에 할당
+        newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed); //newMoveSpeed를 minMoveSpeed와 maxMoveSpeed 사이로 제한하여 이동 속도가 너무 느리거나 빠르지 않도록 보장
+
+        if (newMoveSpeed != moveSpeed) // newMoveSpeed가 현재 moveSpeed와 다를 때
         {
-            moveSpeed = minMoveSpeed; //moveSpeed를 minMoveSpeed로 설정하여 최소 이동 속도를 유지
+            moveSpeed = newMoveSpeed; //moveSpeed를 newMoveSpeed로 업데이트하여 이동 속도를 변경
+
+            float newGravityZ = Physics.gravity.z - speedAmount; //새로운 중력 값을 계산하여 newGravityZ 변수에 할당
+            newGravityZ = Mathf.Clamp(newGravityZ, minGravityZ, maxGravityZ);
+            Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
+            cameraController.ChangeCameraFOV(speedAmount); //cameraController의 ChangeCameraFOV 메서드를 호출하여 카메라 FOV 변경
         }
-        //speedAmount의 절반만큼 z축 방향의 중력 값을 증가시켜 피직스 효과를 조절
-        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
     }
 
     private void SpawnStartiongChunks()
